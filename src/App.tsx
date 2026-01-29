@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { AuthProvider } from './contexts/AuthContext';
+import { AdminAuthProvider } from './contexts/AdminAuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -11,8 +12,10 @@ import GetStartedPage from './pages/GetStartedPage';
 import ContactPage from './pages/ContactPage';
 import DashboardPage from './pages/DashboardPage';
 import AuthPage from './pages/AuthPage';
+import AdminLoginPage from './pages/AdminLoginPage';
+import AdminDashboardPage from './pages/AdminDashboardPage';
 
-type Page = 'home' | 'services' | 'how-it-works' | 'contact' | 'get-started' | 'dashboard' | 'auth';
+type Page = 'home' | 'services' | 'how-it-works' | 'contact' | 'get-started' | 'dashboard' | 'auth' | 'admin-login' | 'admin-dashboard';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -40,6 +43,10 @@ function App() {
         return <DashboardPage onNavigate={handleNavigate} />;
       case 'auth':
         return <AuthPage onNavigate={handleNavigate} />;
+      case 'admin-login':
+        return <AdminLoginPage onNavigate={handleNavigate} />;
+      case 'admin-dashboard':
+        return <AdminDashboardPage onNavigate={handleNavigate} />;
       default:
         return <HomePage onNavigate={handleNavigate} />;
     }
@@ -48,13 +55,15 @@ function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
-          <Header onNavigate={handleNavigate} currentPage={currentPage} />
-          <main>{renderPage()}</main>
-          <Footer onNavigate={handleNavigate} />
-          <WhatsAppButton />
-          <AIChatAgent onNavigate={handleNavigate} />
-        </div>
+        <AdminAuthProvider>
+          <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
+            <Header onNavigate={handleNavigate} currentPage={currentPage} />
+            <main>{renderPage()}</main>
+            <Footer onNavigate={handleNavigate} />
+            <WhatsAppButton />
+            <AIChatAgent onNavigate={handleNavigate} />
+          </div>
+        </AdminAuthProvider>
       </AuthProvider>
     </ThemeProvider>
   );
