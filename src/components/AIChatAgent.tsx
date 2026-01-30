@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { MessageCircle, X, Send, Bot, User as UserIcon } from 'lucide-react';
+import { MessageCircle, X, Send, Bot, User as UserIcon, Zap } from 'lucide-react';
+import { playClickSound, playNotificationSound } from '../utils/soundEffects';
 
 interface Message {
   id: string;
@@ -37,6 +38,8 @@ export default function AIChatAgent({ onNavigate }: AIChatAgentProps) {
   const handleSend = () => {
     if (!input.trim()) return;
 
+    playClickSound();
+
     const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
@@ -48,6 +51,7 @@ export default function AIChatAgent({ onNavigate }: AIChatAgentProps) {
     setInput('');
 
     setTimeout(() => {
+      playNotificationSound();
       const response = generateResponse(input.toLowerCase());
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -103,8 +107,11 @@ export default function AIChatAgent({ onNavigate }: AIChatAgentProps) {
     <>
       {!isOpen && (
         <button
-          onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 left-6 z-40 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-all hover:scale-110 group"
+          onClick={() => {
+            playClickSound();
+            setIsOpen(true);
+          }}
+          className="fixed bottom-6 left-6 z-40 bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 rounded-full shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-blue-800 transition-all hover:scale-110 group animate-pulse"
           aria-label="Open chat"
         >
           <MessageCircle className="h-6 w-6" />
@@ -127,7 +134,10 @@ export default function AIChatAgent({ onNavigate }: AIChatAgentProps) {
               </div>
             </div>
             <button
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                playClickSound();
+                setIsOpen(false);
+              }}
               className="hover:bg-white/20 p-2 rounded-lg transition-colors"
               aria-label="Close chat"
             >

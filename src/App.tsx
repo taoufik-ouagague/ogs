@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AuthProvider } from './contexts/AuthContext';
 import { AdminAuthProvider } from './contexts/AdminAuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import AIChatAgent from './components/AIChatAgent';
+import SplashScreen from './components/SplashScreen';
 import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
 import GetStartedPage from './pages/GetStartedPage';
@@ -20,6 +21,7 @@ type Page = 'home' | 'services' | 'how-it-works' | 'contact' | 'get-started' | '
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [pageData, setPageData] = useState<unknown>(null);
+  const [showSplash, setShowSplash] = useState(true);
 
   const handleNavigate = (page: string, data?: unknown) => {
     setCurrentPage(page as Page);
@@ -56,6 +58,7 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <AdminAuthProvider>
+          {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
           <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
             <Header onNavigate={handleNavigate} currentPage={currentPage} />
             <main>{renderPage()}</main>
