@@ -1,4 +1,4 @@
-import { Building2, Menu, X, Sun, Moon, User, LogOut } from 'lucide-react';
+import { Building2, Menu, X, Sun, Moon, User, LogOut, Shield } from 'lucide-react';
 import { useState } from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 import { useAuth } from '../contexts/AuthContext';
@@ -94,6 +94,14 @@ export default function Header({ onNavigate, currentPage }: HeaderProps) {
             </button>
 
             <button
+              onClick={() => onNavigate('admin-login')}
+              className="flex items-center space-x-1 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+            >
+              <Shield className="h-4 w-4" />
+              <span>Admin</span>
+            </button>
+
+            <button
               onClick={() => onNavigate('get-started')}
               className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
             >
@@ -144,6 +152,13 @@ export default function Header({ onNavigate, currentPage }: HeaderProps) {
                 {item.name}
               </button>
             ))}
+
+            <button
+              onClick={() => handleNavClick('admin-login')}
+              className="block w-full text-left px-4 py-2 rounded-lg text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            >
+              Admin Login
+            </button>
 
             {user ? (
               <>
