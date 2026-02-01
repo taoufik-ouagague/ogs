@@ -94,10 +94,16 @@ export default function AdminLoginPage({ onNavigate }: AdminLoginPageProps) {
             </button>
           </form>
 
-          <div className="mt-6 text-center">
+          <div className="mt-6 space-y-3 text-center">
+            <button
+              onClick={() => onNavigate('admin-setup')}
+              className="block w-full text-blue-600 dark:text-blue-400 hover:underline font-medium"
+            >
+              Create Admin Account
+            </button>
             <button
               onClick={() => onNavigate('home')}
-              className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+              className="block w-full text-gray-600 dark:text-gray-400 hover:underline font-medium"
             >
               Back to Home
             </button>

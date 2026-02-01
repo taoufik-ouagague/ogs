@@ -14,9 +14,10 @@ import ContactPage from './pages/ContactPage';
 import DashboardPage from './pages/DashboardPage';
 import AuthPage from './pages/AuthPage';
 import AdminLoginPage from './pages/AdminLoginPage';
+import AdminSetupPage from './pages/AdminSetupPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 
-type Page = 'home' | 'services' | 'how-it-works' | 'contact' | 'get-started' | 'dashboard' | 'auth' | 'admin-login' | 'admin-dashboard';
+type Page = 'home' | 'services' | 'how-it-works' | 'contact' | 'get-started' | 'dashboard' | 'auth' | 'admin-login' | 'admin-setup' | 'admin-dashboard';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -47,6 +48,8 @@ function App() {
         return <AuthPage onNavigate={handleNavigate} />;
       case 'admin-login':
         return <AdminLoginPage onNavigate={handleNavigate} />;
+      case 'admin-setup':
+        return <AdminSetupPage onNavigate={handleNavigate} />;
       case 'admin-dashboard':
         return <AdminDashboardPage onNavigate={handleNavigate} />;
       default:
